@@ -1,4 +1,4 @@
-package com.jfalck.domain.usecases.getTopMovies.di
+package com.jfalck.mooviz.feature.topmovies.di
 
 import com.jfalck.domain.repository.MoviesRepository
 import com.jfalck.domain.usecases.getTopMovies.GetTopMoviesUseCase
