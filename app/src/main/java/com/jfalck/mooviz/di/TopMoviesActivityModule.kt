@@ -1,10 +1,10 @@
-package com.jfalck.mooviz.feature.topmovies.di
+package com.jfalck.mooviz.di
 
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 
-@Module()
+@Module
 @InstallIn(ActivityComponent::class)
 object TopMoviesActivityModule {
 

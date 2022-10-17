@@ -1,7 +1,6 @@
 package com.jfalck.data.di
 
 import com.jfalck.data.service.MoviesApiService
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
