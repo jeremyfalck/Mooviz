@@ -17,14 +17,24 @@ class TopMoviesViewModel @Inject constructor(
     private val getTopMoviesUseCase: GetTopMoviesUseCase
 ) : ViewModel() {
 
-    val topMoviesLiveData = MutableLiveData<List<Movie>>()
+    companion object {
+        private const val FIRST_PAGE = 1
+    }
+
+    val topMoviesLiveData = MutableLiveData<MutableList<Movie>>()
+
+    var page = FIRST_PAGE
 
     init {
         viewModelScope.launch {
             getTopMoviesUseCase(
-                BuildConfig.API_KEY, Locale.getDefault().language, 1
+                BuildConfig.API_KEY, Locale.getDefault().language, page
             ).collectLatest {
-                topMoviesLiveData.postValue(it.results)
+                val newList = topMoviesLiveData.value ?: mutableListOf()
+                newList.run {
+                    addAll(it.results)
+                    topMoviesLiveData.postValue(this)
+                }
             }
         }
     }
