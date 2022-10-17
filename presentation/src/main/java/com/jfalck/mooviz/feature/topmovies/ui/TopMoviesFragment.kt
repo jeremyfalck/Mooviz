@@ -17,7 +17,6 @@ class TopMoviesFragment : Fragment() {
 
     private val topMoviesViewModel: TopMoviesViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
