@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Mooviz"
-include ':presenter'
+include ':app'
 include ':domain'
 include ':data'
