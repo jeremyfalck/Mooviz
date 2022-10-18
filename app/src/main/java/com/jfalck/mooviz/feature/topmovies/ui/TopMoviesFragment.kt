@@ -11,6 +11,7 @@ import com.jfalck.mooviz.databinding.FragmentTopMoviesBinding
 import com.jfalck.mooviz.feature.topmovies.ui.adapter.TopMoviesPagerAdapter
 import com.jfalck.mooviz.feature.topmovies.viewModel.TopMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TopMoviesFragment : Fragment() {
@@ -19,7 +20,8 @@ class TopMoviesFragment : Fragment() {
 
     private val topMoviesViewModel: TopMoviesViewModel by viewModels()
 
-    private lateinit var adapter: TopMoviesPagerAdapter
+    @Inject
+    lateinit var adapter: TopMoviesPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,13 +39,12 @@ class TopMoviesFragment : Fragment() {
     }
 
     private fun initView() {
-        adapter = TopMoviesPagerAdapter(requireContext())
         binding.fragmentTopMoviesRecyclerView.run {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@TopMoviesFragment.adapter
         }
-        topMoviesViewModel.topMoviesLiveData.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        topMoviesViewModel.topMoviesPagingLiveData.observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
         }
     }
 }

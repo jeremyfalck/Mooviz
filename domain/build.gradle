@@ -44,6 +44,10 @@ dependencies {
     //Hilt
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
+
+    //Paging library -> pure kotlin module
+    implementation "androidx.paging:paging-common:3.1.1"
+
 }
 
 // Allow references to generated code
