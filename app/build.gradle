@@ -24,6 +24,8 @@ android {
         versionName "0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_KEY", "\"10cae2db97999dfcdfe05b0078e57b03\"" // YOUR TMDB API KEY HERE
     }
 
     buildTypes {

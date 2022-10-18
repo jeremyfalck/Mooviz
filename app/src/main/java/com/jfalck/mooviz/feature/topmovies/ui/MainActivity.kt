@@ -8,7 +8,7 @@ import com.jfalck.mooviz.databinding.ActivityTopMoviesBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TopMoviesActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
 
     private val navController by lazy { findNavController(R.id.activity_top_movies_nav_host_fragment) }
