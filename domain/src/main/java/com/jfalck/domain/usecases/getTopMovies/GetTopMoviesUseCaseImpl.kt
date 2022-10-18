@@ -6,6 +6,9 @@ import androidx.paging.PagingData
 import com.jfalck.domain.model.Movie
 import com.jfalck.domain.model.TopMoviesPagingSource
 import com.jfalck.domain.repository.MoviesRepository
+import com.jfalck.domain.usecases.getTopMovies.TopMoviesValues.INITIAL_LOAD_SIZE
+import com.jfalck.domain.usecases.getTopMovies.TopMoviesValues.PAGE_SIZE
+import com.jfalck.domain.usecases.getTopMovies.TopMoviesValues.PREFETCH_DISTANCE
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -26,8 +29,9 @@ class GetTopMoviesUseCaseImpl @Inject constructor(private val repository: Movies
 
         return Pager(
             config = PagingConfig(
-                pageSize = 20,
-                prefetchDistance = 10,
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE,
+                initialLoadSize = INITIAL_LOAD_SIZE,
                 enablePlaceholders = true,
             ),
             pagingSourceFactory = {
