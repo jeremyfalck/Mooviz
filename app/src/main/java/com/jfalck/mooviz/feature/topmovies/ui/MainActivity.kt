@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.jfalck.mooviz.R
-import com.jfalck.mooviz.databinding.ActivityTopMoviesBinding
+import com.jfalck.mooviz.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ActivityTopMoviesBinding.inflate(layoutInflater).also {
+        ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
     }
