@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.jfalck.domain.model.Movie
-import com.jfalck.domain.usecases.getTopMovies.GetTopMoviesUseCase
+import com.jfalck.domain.usecases.favoritemovies.SetFavoriteMovieUseCase
+import com.jfalck.domain.usecases.topmovies.GetTopMoviesUseCase
 import com.jfalck.mooviz.BuildConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Locale
@@ -17,7 +18,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class TopMoviesViewModel @Inject constructor(
-    private val getTopMoviesUseCase: GetTopMoviesUseCase
+    private val getTopMoviesUseCase: GetTopMoviesUseCase,
+    private val setFavoriteMovieUseCase: SetFavoriteMovieUseCase
 ) : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.IO) {
 
     companion object {
@@ -36,6 +38,12 @@ class TopMoviesViewModel @Inject constructor(
                 Log.d("TopMoviesViewModel", "collect")
                 topMoviesPagingLiveData.postValue(it)
             }
+        }
+    }
+
+    fun setFavorite(movieId: Int, isFavorite: Boolean) {
+        launch {
+            //setFavoriteMovieUseCase(movieId)
         }
     }
 }

@@ -46,5 +46,9 @@ class TopMoviesFragment : Fragment() {
         topMoviesViewModel.topMoviesPagingLiveData.observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
         }
+
+        adapter.onFavoriteSelectedListener = { movieId: Int, isFavorite: Boolean ->
+            topMoviesViewModel.setFavorite(movieId, isFavorite)
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.jfalck.domain.usecases.getTopMovies
+package com.jfalck.domain.usecases.topmovies
 
 import androidx.paging.PagingData
 import com.jfalck.domain.model.Movie

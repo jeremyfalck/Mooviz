@@ -1,4 +1,4 @@
-package com.jfalck.domain.usecases.getTopMovies
+package com.jfalck.domain.usecases.topmovies
 
 object TopMoviesValues {
     const val PAGE_SIZE = 20

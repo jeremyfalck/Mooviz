@@ -20,15 +20,21 @@ import kotlin.random.Random
 class TopMoviesPagerAdapter @Inject constructor() :
     PagingDataAdapter<Movie, TopMoviesPagerAdapter.TopMovieViewHolder>(TopMoviesDiffCallback()) {
 
+    var onFavoriteSelectedListener: ((Int, Boolean) -> Unit) = { _, _ -> }
+
     inner class TopMovieViewHolder(val binding: TopMovieItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: TopMovieViewHolder, position: Int) {
-        val item = getItem(position)
         setAnimation(holder.itemView, position)
-        holder.binding.topMovieItemTitle.text = item?.title
-        Glide.with(holder.itemView.context).load(BASE_POSTER_URL + item?.posterPath)
-            .into(holder.binding.topMoviePoster)
+        getItem(position)?.let { item ->
+            holder.binding.topMovieItemTitle.text = item.title
+            Glide.with(holder.itemView.context).load(BASE_POSTER_URL + item.posterPath)
+                .into(holder.binding.topMoviePoster)
+            holder.binding.topMoviesFavIcon.setOnClickListener {
+                onFavoriteSelectedListener(item.id, true)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopMovieViewHolder =
