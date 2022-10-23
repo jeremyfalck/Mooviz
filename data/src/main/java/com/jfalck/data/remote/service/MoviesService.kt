@@ -1,7 +1,7 @@
-package com.jfalck.data.service
+package com.jfalck.data.remote.service
 
-import com.jfalck.data.dto.MovieDTO
-import com.jfalck.data.dto.TopMoviesDTO
+import com.jfalck.data.remote.dto.MovieDTO
+import com.jfalck.data.remote.dto.TopMoviesDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

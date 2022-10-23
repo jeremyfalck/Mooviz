@@ -1,6 +1,6 @@
-package com.jfalck.data.mapper.topmovies
+package com.jfalck.data.remote.mapper.topmovies
 
-import com.jfalck.data.dto.TopMoviesDTO
+import com.jfalck.data.remote.dto.TopMoviesDTO
 import com.jfalck.domain.model.TopMovies
 import javax.inject.Inject
 

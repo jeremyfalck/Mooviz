@@ -1,6 +1,6 @@
-package com.jfalck.data.di
+package com.jfalck.data.remote.di
 
-import com.jfalck.data.service.MoviesApiService
+import com.jfalck.data.remote.service.MoviesApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

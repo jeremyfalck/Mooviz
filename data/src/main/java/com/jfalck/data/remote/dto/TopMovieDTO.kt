@@ -1,4 +1,4 @@
-package com.jfalck.data.dto
+package com.jfalck.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 

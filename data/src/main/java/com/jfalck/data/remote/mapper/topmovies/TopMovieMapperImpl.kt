@@ -1,6 +1,6 @@
-package com.jfalck.data.mapper.topmovies
+package com.jfalck.data.remote.mapper.topmovies
 
-import com.jfalck.data.dto.TopMovieDTO
+import com.jfalck.data.remote.dto.TopMovieDTO
 import com.jfalck.domain.model.TopMovie
 
 class TopMovieMapperImpl : TopMovieMapper {

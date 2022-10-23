@@ -1,6 +1,6 @@
-package com.jfalck.data.mapper.movie
+package com.jfalck.data.remote.mapper.movie
 
-import com.jfalck.data.dto.MovieDTO
+import com.jfalck.data.remote.dto.MovieDTO
 import com.jfalck.domain.model.Movie
 import com.jfalck.domain.model.MovieGenre
 import com.jfalck.domain.model.ProductionCompany

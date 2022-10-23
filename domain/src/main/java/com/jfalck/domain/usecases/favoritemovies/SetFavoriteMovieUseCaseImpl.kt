@@ -14,8 +14,12 @@ class SetFavoriteMovieUseCaseImpl @Inject constructor(
         isFavorite: Boolean
     ) {
         if (isFavorite) {
-            val movie = moviesRepository.getMovieById(apiKey, language, movieId)
-            Log.d("SetFavoriteMovieUseCase", movie.toString())
+            try {
+                val movie = moviesRepository.getMovieById(apiKey, language, movieId)
+                moviesRepository.addFavoriteMovie(movie)
+            } catch (e: Exception) {
+                Log.e("SetFavoriteMovie", e.message ?: "Error")
+            }
         } else {
             // TODO get movie from db and delete it if not favorite
         }
