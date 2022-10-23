@@ -4,7 +4,7 @@ import com.jfalck.data.remote.dto.TopMovieDTO
 import com.jfalck.domain.model.TopMovie
 
 class TopMovieMapperImpl : TopMovieMapper {
-    override fun mapToTopMovie(dto: TopMovieDTO): TopMovie = TopMovie(
+    override fun mapToTopMovie(dto: TopMovieDTO, favoriteMoviesIds: List<Int>): TopMovie = TopMovie(
         id = dto.id,
         title = dto.title,
         overview = dto.overview,
@@ -18,6 +18,7 @@ class TopMovieMapperImpl : TopMovieMapper {
         originalTitle = dto.originalTitle,
         genreIds = dto.genreIds,
         video = dto.video,
-        adult = dto.adult
+        adult = dto.adult,
+        isFavorite = favoriteMoviesIds.any { it == dto.id }
     )
 }

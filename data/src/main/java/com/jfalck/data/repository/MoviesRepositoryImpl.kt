@@ -17,20 +17,28 @@ class MoviesRepositoryImpl @Inject constructor(
     private val movieMapper: MovieMapper,
     private val favoriteMovieMapper: FavoriteMovieMapper
 ) : MoviesRepository {
+
     override suspend fun getTopMovies(
         apiKey: String, language: String, page: Int
-    ): TopMovies = topMoviesMapper.mapToTopMovies(
-        moviesApiService.getTopMovies(apiKey, language, page)
-    )
+    ): TopMovies {
+        val favoriteIds = moviesDatabase.favoriteMovieDao().getAll().map { it.id }
+        return topMoviesMapper.mapToTopMovies(
+            moviesApiService.getTopMovies(apiKey, language, page), favoriteIds
+        )
+    }
 
     override suspend fun getMovieById(apiKey: String, language: String, movieId: Int): Movie =
         movieMapper.mapToMovie(moviesApiService.getMovieFromId(movieId, apiKey, language))
 
-    override suspend fun addFavoriteMovie(movie: Movie) {
+    override suspend fun addFavoriteMovie(movie: Movie) =
         moviesDatabase.favoriteMovieDao().insertAll(favoriteMovieMapper.mapToFavoriteMovie(movie))
-    }
 
-    override suspend fun deleteFavoriteMovie(movieId: Int) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun deleteFavoriteMovie(movieId: Int) =
+        moviesDatabase.favoriteMovieDao().deleteById(movieId)
+
+    override suspend fun getFavoriteMovie(movieId: Int): Movie? =
+        moviesDatabase.favoriteMovieDao().findById(movieId)?.let {
+            favoriteMovieMapper.mapFavoriteMovieToMovie(it)
+        }
+
 }

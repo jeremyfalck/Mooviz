@@ -1,4 +1,4 @@
-package com.jfalck.data.local.di
+package com.jfalck.data.di
 
 import com.jfalck.data.local.mapper.FavoriteMovieMapper
 import com.jfalck.data.local.mapper.FavoriteMovieMapperImpl

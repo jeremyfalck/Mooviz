@@ -10,11 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jfalck.domain.constants.MovieConstants.BASE_POSTER_URL
 import com.jfalck.domain.model.TopMovie
+import com.jfalck.mooviz.R
 import com.jfalck.mooviz.databinding.TopMovieItemBinding
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 import kotlin.random.Random
 
+
+const val IS_FAVORITE_KEY = "isFavorite"
 
 @FragmentScoped
 class TopMoviesPagerAdapter @Inject constructor() :
@@ -28,11 +31,40 @@ class TopMoviesPagerAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: TopMovieViewHolder, position: Int) {
         setAnimation(holder.itemView, position)
         getItem(position)?.let { item ->
-            holder.binding.topMovieItemTitle.text = item.title
-            Glide.with(holder.itemView.context).load(BASE_POSTER_URL + item.posterPath)
-                .into(holder.binding.topMoviePoster)
-            holder.binding.topMoviesFavIcon.setOnClickListener {
-                onFavoriteSelectedListener(item.id, true)
+            bindItem(holder, item)
+        }
+    }
+
+    private fun bindItem(holder: TopMovieViewHolder, item: TopMovie) {
+        holder.binding.topMovieItemTitle.text = item.title
+        Glide.with(holder.itemView.context).load(BASE_POSTER_URL + item.posterPath)
+            .into(holder.binding.topMoviePoster)
+        holder.binding.topMoviesFavIcon.setImageResource(
+            if (item.isFavorite) {
+                R.drawable.ic_star
+            } else {
+                R.drawable.ic_star_outline
+            }
+        )
+        holder.binding.topMoviesFavIcon.setOnClickListener {
+            onFavoriteSelectedListener(item.id, !item.isFavorite)
+        }
+    }
+
+    override fun onBindViewHolder(
+        holder: TopMovieViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            payloads.forEach {
+                if (it is String && it == IS_FAVORITE_KEY) {
+                    getItem(position)?.let { topMovie ->
+                        bindItem(holder, topMovie)
+                    }
+                }
             }
         }
     }

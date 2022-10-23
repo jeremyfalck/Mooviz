@@ -9,6 +9,6 @@ interface MoviesRepository {
     suspend fun getMovieById(apiKey: String, language: String, movieId: Int): Movie
 
     suspend fun addFavoriteMovie(movie: Movie)
-
     suspend fun deleteFavoriteMovie(movieId: Int)
+    suspend fun getFavoriteMovie(movieId: Int): Movie?
 }

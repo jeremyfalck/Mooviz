@@ -1,4 +1,4 @@
-package com.jfalck.data.local.di
+package com.jfalck.data.di
 
 import android.content.Context
 import androidx.room.Room

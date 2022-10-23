@@ -1,7 +1,6 @@
 package com.jfalck.data.local.db.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.jfalck.data.local.db.entity.FavoriteMovie
@@ -9,20 +8,19 @@ import com.jfalck.data.local.db.entity.FavoriteMovie
 @Dao
 interface FavoriteMovieDAO {
     @Query("SELECT * FROM favorite_movie")
-    fun getAll(): List<FavoriteMovie>
+    suspend fun getAll(): List<FavoriteMovie>
 
     @Query("SELECT * FROM favorite_movie WHERE id IN (:movieId)")
-    fun loadById(movieId: Int): FavoriteMovie
+    suspend fun loadById(movieId: Int): FavoriteMovie
 
     @Query(
-        "SELECT * FROM favorite_movie WHERE original_title LIKE :text OR " +
-                "title LIKE :text LIMIT 1"
+        "SELECT * FROM favorite_movie WHERE id = :movieId"
     )
-    fun findByTitle(text: String): FavoriteMovie
+    suspend fun findById(movieId: Int): FavoriteMovie?
 
     @Insert
-    fun insertAll(vararg users: FavoriteMovie)
+    suspend fun insertAll(vararg users: FavoriteMovie)
 
-    @Delete
-    fun delete(user: FavoriteMovie)
+    @Query("DELETE FROM favorite_movie WHERE id = :movieId")
+    suspend fun deleteById(movieId: Int)
 }

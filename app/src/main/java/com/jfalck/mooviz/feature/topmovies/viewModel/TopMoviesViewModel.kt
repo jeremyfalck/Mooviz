@@ -28,6 +28,8 @@ class TopMoviesViewModel @Inject constructor(
 
     val topMoviesPagingLiveData = MutableLiveData<PagingData<TopMovie>>()
 
+    val moviesChangedLiveData = MutableLiveData<Int>()
+
     var page = FIRST_PAGE
 
     init {
@@ -43,12 +45,18 @@ class TopMoviesViewModel @Inject constructor(
 
     fun setFavorite(movieId: Int, isFavorite: Boolean) {
         launch {
-            setFavoriteMovieUseCase.invoke(
-                BuildConfig.API_KEY,
-                Locale.getDefault().language,
-                movieId,
-                isFavorite
-            )
+            try {
+                setFavoriteMovieUseCase.invoke(
+                    BuildConfig.API_KEY,
+                    Locale.getDefault().language,
+                    movieId,
+                    isFavorite
+                )
+                moviesChangedLiveData.postValue(movieId)
+
+            } catch (e: Exception) {
+                Log.e("TopMoviesViewModel", e.message ?: "Error")
+            }
         }
     }
 }

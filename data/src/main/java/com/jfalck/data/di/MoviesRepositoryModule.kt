@@ -1,11 +1,7 @@
 package com.jfalck.data.di
 
 import com.jfalck.data.local.db.MoviesDatabase
-import com.jfalck.data.local.di.FavoriteMovieMapperModule
-import com.jfalck.data.local.di.MoviesDatabaseModule
 import com.jfalck.data.local.mapper.FavoriteMovieMapper
-import com.jfalck.data.remote.di.ApiModule
-import com.jfalck.data.remote.di.MovieMapperModule
 import com.jfalck.data.remote.mapper.movie.MovieMapper
 import com.jfalck.data.remote.mapper.topmovies.TopMoviesMapper
 import com.jfalck.data.remote.service.MoviesApiService

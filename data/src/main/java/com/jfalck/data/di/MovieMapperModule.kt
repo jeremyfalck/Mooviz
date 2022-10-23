@@ -1,4 +1,4 @@
-package com.jfalck.data.remote.di
+package com.jfalck.data.di
 
 import com.jfalck.data.remote.mapper.movie.MovieMapper
 import com.jfalck.data.remote.mapper.movie.MovieMapperImpl
