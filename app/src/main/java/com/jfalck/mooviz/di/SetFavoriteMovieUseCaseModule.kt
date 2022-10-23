@@ -1,6 +1,7 @@
 package com.jfalck.mooviz.di
 
 import com.jfalck.data.di.MoviesRepositoryModule
+import com.jfalck.domain.repository.MoviesRepository
 import com.jfalck.domain.usecases.favoritemovies.SetFavoriteMovieUseCase
 import com.jfalck.domain.usecases.favoritemovies.SetFavoriteMovieUseCaseImpl
 import dagger.Module
@@ -16,7 +17,8 @@ class SetFavoriteMovieUseCaseModule {
     @Singleton
     @Provides
     fun providesSetFavoriteMovieUseCase(
+        moviesRepository: MoviesRepository
     ): SetFavoriteMovieUseCase =
-        SetFavoriteMovieUseCaseImpl()
+        SetFavoriteMovieUseCaseImpl(moviesRepository)
 
 }

@@ -1,5 +1,6 @@
 package com.jfalck.data.di
 
+import com.jfalck.data.mapper.movie.MovieMapper
 import com.jfalck.data.mapper.topmovies.TopMoviesMapper
 import com.jfalck.data.repository.MoviesRepositoryImpl
 import com.jfalck.data.service.MoviesApiService
@@ -17,8 +18,8 @@ object MoviesRepositoryModule {
     @Singleton
     @Provides
     fun providesMoviesRepository(
-        apiService: MoviesApiService, topMoviesMapper: TopMoviesMapper
+        apiService: MoviesApiService, topMoviesMapper: TopMoviesMapper, movieMapper: MovieMapper
     ): MoviesRepository = MoviesRepositoryImpl(
-        apiService, topMoviesMapper
+        apiService, topMoviesMapper, movieMapper
     )
 }

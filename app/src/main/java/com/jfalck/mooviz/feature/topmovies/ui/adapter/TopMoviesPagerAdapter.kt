@@ -9,7 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jfalck.domain.constants.MovieConstants.BASE_POSTER_URL
-import com.jfalck.domain.model.Movie
+import com.jfalck.domain.model.TopMovie
 import com.jfalck.mooviz.databinding.TopMovieItemBinding
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
@@ -18,7 +18,7 @@ import kotlin.random.Random
 
 @FragmentScoped
 class TopMoviesPagerAdapter @Inject constructor() :
-    PagingDataAdapter<Movie, TopMoviesPagerAdapter.TopMovieViewHolder>(TopMoviesDiffCallback()) {
+    PagingDataAdapter<TopMovie, TopMoviesPagerAdapter.TopMovieViewHolder>(TopMoviesDiffCallback()) {
 
     var onFavoriteSelectedListener: ((Int, Boolean) -> Unit) = { _, _ -> }
 

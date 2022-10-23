@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.jfalck.domain.model.Movie
+import com.jfalck.domain.model.TopMovie
 import com.jfalck.mooviz.databinding.FavoriteMovieItemBinding
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 
 @FragmentScoped
 class FavoriteMoviesAdapter @Inject constructor() :
-    ListAdapter<Movie, FavoriteMoviesAdapter.FavoriteMoviesViewHolder>(FavoriteMoviesDiffCallback()) {
+    ListAdapter<TopMovie, FavoriteMoviesAdapter.FavoriteMoviesViewHolder>(FavoriteMoviesDiffCallback()) {
 
 
     inner class FavoriteMoviesViewHolder(val binding: FavoriteMovieItemBinding) :

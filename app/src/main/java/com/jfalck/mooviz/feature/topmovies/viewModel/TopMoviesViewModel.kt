@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
-import com.jfalck.domain.model.Movie
+import com.jfalck.domain.model.TopMovie
 import com.jfalck.domain.usecases.favoritemovies.SetFavoriteMovieUseCase
 import com.jfalck.domain.usecases.topmovies.GetTopMoviesUseCase
 import com.jfalck.mooviz.BuildConfig
@@ -26,7 +26,7 @@ class TopMoviesViewModel @Inject constructor(
         private const val FIRST_PAGE = 1
     }
 
-    val topMoviesPagingLiveData = MutableLiveData<PagingData<Movie>>()
+    val topMoviesPagingLiveData = MutableLiveData<PagingData<TopMovie>>()
 
     var page = FIRST_PAGE
 
@@ -43,7 +43,12 @@ class TopMoviesViewModel @Inject constructor(
 
     fun setFavorite(movieId: Int, isFavorite: Boolean) {
         launch {
-            //setFavoriteMovieUseCase(movieId)
+            setFavoriteMovieUseCase.invoke(
+                BuildConfig.API_KEY,
+                Locale.getDefault().language,
+                movieId,
+                isFavorite
+            )
         }
     }
 }

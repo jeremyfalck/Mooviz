@@ -2,6 +2,8 @@ package com.jfalck.data.di
 
 import com.jfalck.data.mapper.movie.MovieMapper
 import com.jfalck.data.mapper.movie.MovieMapperImpl
+import com.jfalck.data.mapper.topmovies.TopMovieMapper
+import com.jfalck.data.mapper.topmovies.TopMovieMapperImpl
 import com.jfalck.data.mapper.topmovies.TopMoviesMapper
 import com.jfalck.data.mapper.topmovies.TopMoviesMapperImpl
 import dagger.Module
@@ -16,10 +18,14 @@ object MovieMapperModule {
 
     @Singleton
     @Provides
-    fun providesMovieMapper(): MovieMapper = MovieMapperImpl()
+    fun providesTopMovieMapper(): TopMovieMapper = TopMovieMapperImpl()
 
     @Singleton
     @Provides
-    fun providesTopMoviesMapper(moviesMapper: MovieMapper): TopMoviesMapper =
+    fun providesTopMoviesMapper(moviesMapper: TopMovieMapper): TopMoviesMapper =
         TopMoviesMapperImpl(moviesMapper)
+
+    @Singleton
+    @Provides
+    fun providesMovieMapper(): MovieMapper = MovieMapperImpl()
 }

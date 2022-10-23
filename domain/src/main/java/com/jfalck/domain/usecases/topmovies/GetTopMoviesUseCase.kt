@@ -1,7 +1,7 @@
 package com.jfalck.domain.usecases.topmovies
 
 import androidx.paging.PagingData
-import com.jfalck.domain.model.Movie
+import com.jfalck.domain.model.TopMovie
 import kotlinx.coroutines.flow.Flow
 
 interface GetTopMoviesUseCase {
@@ -9,5 +9,5 @@ interface GetTopMoviesUseCase {
         apiKey: String,
         language: String,
         page: Int
-    ): Flow<PagingData<Movie>>
+    ): Flow<PagingData<TopMovie>>
 }

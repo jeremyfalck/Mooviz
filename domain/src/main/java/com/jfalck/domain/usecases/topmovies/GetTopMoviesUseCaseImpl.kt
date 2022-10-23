@@ -3,7 +3,7 @@ package com.jfalck.domain.usecases.topmovies
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.jfalck.domain.model.Movie
+import com.jfalck.domain.model.TopMovie
 import com.jfalck.domain.model.TopMoviesPagingSource
 import com.jfalck.domain.repository.MoviesRepository
 import com.jfalck.domain.usecases.topmovies.TopMoviesValues.INITIAL_LOAD_SIZE
@@ -23,7 +23,7 @@ class GetTopMoviesUseCaseImpl @Inject constructor(private val repository: Movies
         apiKey: String,
         language: String,
         page: Int
-    ): Flow<PagingData<Movie>> {
+    ): Flow<PagingData<TopMovie>> {
 
         dataSource = TopMoviesPagingSource(repository, apiKey, language)
 
