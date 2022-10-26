@@ -11,5 +11,11 @@
         android:label="TopMoviesFragment"
         tools:layout="@layout/fragment_top_movies" />
 
+    <fragment
+        android:id="@+id/favoriteMoviesFragment"
+        android:name="com.jfalck.mooviz.feature.favoritemovies.ui.FavoriteMoviesFragment"
+        android:label="FavoriteMoviesFragment"
+        tools:layout="@layout/fragment_favorite_movies" />
+
 
 </navigation>

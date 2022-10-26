@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Mooviz</string>
+    <string name="set_as_favorite">Mettre en favori</string>
+    <string name="poster">Poster</string>
 </resources>
