@@ -3,11 +3,11 @@ package com.jfalck.mooviz.feature.favoritemovies.wrapper
 import com.jfalck.domain.model.Movie
 
 class FavoriteMovieWrapper(private val movie: Movie) {
-    fun getId() = movie.id
+    fun getId() = movie.id ?: 0
 
-    fun getTitle() = movie.title
+    fun getTitle() = movie.title ?: ""
 
-    fun getPosterPath() = movie.posterPath
+    fun getPosterPath() = movie.posterPath ?: ""
 
     override fun equals(other: Any?): Boolean {
         return if (other is FavoriteMovieWrapper) {

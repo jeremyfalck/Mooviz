@@ -16,9 +16,9 @@ class TopMovieMapperImpl : TopMovieMapper {
         popularity = dto.popularity,
         originalLanguage = dto.originalLanguage,
         originalTitle = dto.originalTitle,
-        genreIds = dto.genreIds,
-        video = dto.video,
-        adult = dto.adult,
+        genreIds = dto.genreIds ?: listOf(),
+        video = dto.video ?: false,
+        adult = dto.adult ?: false,
         isFavorite = favoriteMoviesIds.any { it == dto.id }
     )
 }

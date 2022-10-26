@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.jfalck.mooviz.databinding.FragmentTopMoviesBinding
 import com.jfalck.mooviz.feature.topmovies.ui.adapter.IS_FAVORITE_KEY
 import com.jfalck.mooviz.feature.topmovies.ui.adapter.TopMoviesPagerAdapter
@@ -24,6 +25,8 @@ class TopMoviesFragment : Fragment() {
     @Inject
     lateinit var adapter: TopMoviesPagerAdapter
 
+    private lateinit var snackbar: Snackbar
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View = FragmentTopMoviesBinding.inflate(layoutInflater).let {
@@ -34,19 +37,25 @@ class TopMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        observeLiveDatas()
     }
 
     private fun initView() {
+        snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_SHORT)
+
         binding.fragmentTopMoviesRecyclerView.run {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@TopMoviesFragment.adapter
         }
-        topMoviesViewModel.topMoviesPagingLiveData.observe(viewLifecycleOwner) {
-            adapter.submitData(lifecycle, it)
-        }
 
         adapter.onFavoriteSelectedListener = { movieId: Int, isFavorite: Boolean ->
             topMoviesViewModel.setFavorite(movieId, isFavorite)
+        }
+    }
+
+    private fun observeLiveDatas() {
+        topMoviesViewModel.topMoviesPagingLiveData.observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
         }
 
         topMoviesViewModel.moviesChangedLiveData.observe(viewLifecycleOwner) { movieId ->
@@ -56,6 +65,12 @@ class TopMoviesFragment : Fragment() {
             adapter.notifyItemChanged(
                 adapter.snapshot().items.indexOfFirst { it.id == movieId }, IS_FAVORITE_KEY
             )
+        }
+
+        topMoviesViewModel.errorMessageLiveData.observe(viewLifecycleOwner) {
+            if (::snackbar.isInitialized) {
+                snackbar.setText(it).show()
+            }
         }
     }
 }

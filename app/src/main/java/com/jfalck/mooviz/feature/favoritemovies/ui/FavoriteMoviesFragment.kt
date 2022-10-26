@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.jfalck.mooviz.databinding.FragmentFavoriteMoviesBinding
 import com.jfalck.mooviz.feature.favoritemovies.ui.adapter.FavoriteMoviesAdapter
 import com.jfalck.mooviz.feature.favoritemovies.viewmodel.FavoriteMoviesViewModel
@@ -23,6 +24,8 @@ class FavoriteMoviesFragment : Fragment() {
     @Inject
     lateinit var adapter: FavoriteMoviesAdapter
 
+    private lateinit var snackbar: Snackbar
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,18 +39,28 @@ class FavoriteMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        observeLiveDatas()
     }
 
     private fun initView() {
+        snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_SHORT)
         binding.favoriteMoviesFragmentRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@FavoriteMoviesFragment.adapter.apply {
                 onUnFavorite = { movieId -> favoriteMoviesViewModel.removeFavorite(movieId) }
             }
         }
+    }
 
+    private fun observeLiveDatas() {
         favoriteMoviesViewModel.favoriteMoviesLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+
+        favoriteMoviesViewModel.errorMessageLiveData.observe(viewLifecycleOwner) {
+            if (::snackbar.isInitialized) {
+                snackbar.setText(it).show()
+            }
         }
     }
 }

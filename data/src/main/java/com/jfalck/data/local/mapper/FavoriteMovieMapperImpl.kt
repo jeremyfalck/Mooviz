@@ -9,7 +9,7 @@ class FavoriteMovieMapperImpl : FavoriteMovieMapper {
 
     override fun mapToFavoriteMovie(movie: Movie): FavoriteMovie =
         FavoriteMovie(
-            id = movie.id,
+            id = movie.id ?: 0,
             adult = movie.adult,
             backdropPath = movie.backdropPath,
             budget = movie.budget,
@@ -54,43 +54,43 @@ class FavoriteMovieMapperImpl : FavoriteMovieMapper {
 
     override fun mapFavoriteMovieToMovie(favoriteMovie: FavoriteMovie): Movie =
         Movie(
-            adult = favoriteMovie.adult,
-            backdropPath = favoriteMovie.backdropPath ?: "",
+            adult = favoriteMovie.adult ?: false,
+            backdropPath = favoriteMovie.backdropPath,
             budget = favoriteMovie.budget,
-            genres = favoriteMovie.genres.map { MovieGenre(it.id, it.name ?: "") },
-            homepage = favoriteMovie.homepage ?: "",
+            genres = favoriteMovie.genres.map { MovieGenre(it.id, it.name) },
+            homepage = favoriteMovie.homepage,
             id = favoriteMovie.id,
-            imdbId = favoriteMovie.imdbId ?: "",
+            imdbId = favoriteMovie.imdbId,
             originalLanguage = favoriteMovie.originalLanguage,
             originalTitle = favoriteMovie.originalTitle,
-            overview = favoriteMovie.overview ?: "",
+            overview = favoriteMovie.overview,
             popularity = favoriteMovie.popularity,
-            posterPath = favoriteMovie.posterPath ?: "",
+            posterPath = favoriteMovie.posterPath,
             productionCompanies = favoriteMovie.productionCompanies.map {
                 com.jfalck.domain.model.ProductionCompany(
                     it.id,
-                    it.logoPath ?: "",
-                    it.name ?: "",
-                    it.originCountry ?: ""
+                    it.logoPath,
+                    it.name,
+                    it.originCountry
                 )
             },
             productionCountries = favoriteMovie.productionCountries.map {
                 com.jfalck.domain.model.ProductionCountry(
                     it.isoCode,
-                    it.name ?: ""
+                    it.name
                 )
             },
             releaseDate = favoriteMovie.releaseDate,
             revenue = favoriteMovie.revenue,
-            runtime = favoriteMovie.runtime ?: 0,
+            runtime = favoriteMovie.runtime,
             spokenLanguages = favoriteMovie.spokenLanguages.map {
                 com.jfalck.domain.model.SpokenLanguage(
                     it.isoCode,
-                    it.name ?: ""
+                    it.name
                 )
             },
             status = favoriteMovie.status,
-            tagline = favoriteMovie.tagline ?: "",
+            tagline = favoriteMovie.tagline,
             title = favoriteMovie.title,
             video = favoriteMovie.video,
             voteAverage = favoriteMovie.voteAverage,
