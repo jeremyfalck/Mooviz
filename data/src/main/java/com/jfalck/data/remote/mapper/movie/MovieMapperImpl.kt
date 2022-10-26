@@ -9,40 +9,41 @@ import com.jfalck.domain.model.SpokenLanguage
 
 class MovieMapperImpl : MovieMapper {
     override fun mapToMovie(dto: MovieDTO): Movie = Movie(
-        adult = dto.adult,
-        backdropPath = dto.backdropPath ?: "",
+        adult = dto.adult ?: false,
+        backdropPath = dto.backdropPath,
         budget = dto.budget,
-        genres = dto.genres.map { MovieGenre(it.id, it.name ?: "") },
-        homepage = dto.homepage ?: "",
+        genres = dto.genres?.map { MovieGenre(it.id, it.name) } ?: listOf(),
+        homepage = dto.homepage,
         id = dto.id,
-        imdbId = dto.imdbId ?: "",
+        imdbId = dto.imdbId,
         originalLanguage = dto.originalLanguage,
         originalTitle = dto.originalTitle,
-        overview = dto.overview ?: "",
+        overview = dto.overview,
         popularity = dto.popularity,
-        posterPath = dto.posterPath ?: "",
-        productionCompanies = dto.productionCompanies.map {
+        posterPath = dto.posterPath,
+        productionCompanies = dto.productionCompanies?.map {
             ProductionCompany(
                 it.id,
-                it.logoPath ?: "",
-                it.name ?: "",
-                it.originCounty ?: ""
+                it.logoPath,
+                it.name,
+                it.originCounty
             )
-        },
-        productionCountries = dto.productionCountries.map {
+        } ?: listOf(),
+        productionCountries = dto.productionCountries?.map {
             ProductionCountry(
                 it.isoCode,
-                it.name ?: ""
+                it.name
             )
-        },
+        } ?: listOf(),
         releaseDate = dto.releaseDate,
         revenue = dto.revenue,
-        runtime = dto.runtime ?: 0,
-        spokenLanguages = dto.spokenLanguages.map { SpokenLanguage(it.isoCode, it.name ?: "") },
+        runtime = dto.runtime,
+        spokenLanguages = dto.spokenLanguages?.map { SpokenLanguage(it.isoCode, it.name) }
+            ?: listOf(),
         status = dto.status,
-        tagline = dto.tagline ?: "",
+        tagline = dto.tagline,
         title = dto.title,
-        video = dto.video,
+        video = dto.video ?: false,
         voteAverage = dto.voteAverage,
         voteCount = dto.voteCount
     )

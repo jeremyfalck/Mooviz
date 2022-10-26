@@ -9,7 +9,8 @@ class TopMoviesMapperImpl @Inject constructor(private val topMovieMapper: TopMov
     override fun mapToTopMovies(dto: TopMoviesDTO, favoriteMoviesIds: List<Int>): TopMovies {
         return TopMovies(
             page = dto.page,
-            results = dto.results.map { topMovieMapper.mapToTopMovie(it, favoriteMoviesIds) },
+            results = dto.results?.map { topMovieMapper.mapToTopMovie(it, favoriteMoviesIds) }
+                ?: listOf(),
             totalPages = dto.totalPages,
             totalResults = dto.totalResults
         )

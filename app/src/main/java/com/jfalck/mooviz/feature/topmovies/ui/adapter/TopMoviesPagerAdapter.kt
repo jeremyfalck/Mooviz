@@ -47,7 +47,7 @@ class TopMoviesPagerAdapter @Inject constructor() :
             }
         )
         holder.binding.topMoviesFavIcon.setOnClickListener {
-            onFavoriteSelectedListener(item.id, !item.isFavorite)
+            onFavoriteSelectedListener(item.id ?: 0, !item.isFavorite)
         }
     }
 
