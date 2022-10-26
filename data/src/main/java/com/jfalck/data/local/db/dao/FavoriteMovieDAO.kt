@@ -4,11 +4,15 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.jfalck.data.local.db.entity.FavoriteMovie
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteMovieDAO {
     @Query("SELECT * FROM favorite_movie")
     suspend fun getAll(): List<FavoriteMovie>
+
+    @Query("SELECT * FROM favorite_movie")
+    fun getAllAsFlow(): Flow<List<FavoriteMovie>>
 
     @Query("SELECT * FROM favorite_movie WHERE id IN (:movieId)")
     suspend fun loadById(movieId: Int): FavoriteMovie

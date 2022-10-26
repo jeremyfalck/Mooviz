@@ -9,6 +9,8 @@ import com.jfalck.domain.model.Movie
 import com.jfalck.domain.model.TopMovies
 import com.jfalck.domain.repository.MoviesRepository
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class MoviesRepositoryImpl @Inject constructor(
     private val moviesApiService: MoviesApiService,
@@ -41,4 +43,8 @@ class MoviesRepositoryImpl @Inject constructor(
             favoriteMovieMapper.mapFavoriteMovieToMovie(it)
         }
 
+    override suspend fun getFavoriteMovies(): Flow<List<Movie>> =
+        moviesDatabase.favoriteMovieDao().getAllAsFlow().map { favoriteMovies ->
+            favoriteMovies.map { favoriteMovieMapper.mapFavoriteMovieToMovie(it) }
+        }
 }

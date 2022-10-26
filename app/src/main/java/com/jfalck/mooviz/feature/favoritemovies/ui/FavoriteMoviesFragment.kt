@@ -43,5 +43,9 @@ class FavoriteMoviesFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@FavoriteMoviesFragment.adapter
         }
+
+        favoriteMoviesViewModel.favoriteMoviesLiveData.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 }

@@ -1,12 +1,12 @@
 package com.jfalck.mooviz.feature.favoritemovies.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.jfalck.domain.model.TopMovie
+import com.jfalck.domain.model.Movie
 
-class FavoriteMoviesDiffCallback : DiffUtil.ItemCallback<TopMovie>() {
-    override fun areItemsTheSame(oldItem: TopMovie, newItem: TopMovie): Boolean =
+class FavoriteMoviesDiffCallback : DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
         oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: TopMovie, newItem: TopMovie): Boolean =
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
         oldItem == newItem
 }
