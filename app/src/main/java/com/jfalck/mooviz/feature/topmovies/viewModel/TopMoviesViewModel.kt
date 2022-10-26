@@ -32,13 +32,19 @@ class TopMoviesViewModel @Inject constructor(
 
     var page = FIRST_PAGE
 
+    val errorMessageLiveData = MutableLiveData<String>()
+
     init {
         launch {
-            getTopMoviesUseCase(
-                BuildConfig.API_KEY, Locale.getDefault().language, page
-            ).distinctUntilChanged().collect {
-                Log.d("TopMoviesViewModel", "collect")
-                topMoviesPagingLiveData.postValue(it)
+            try {
+                getTopMoviesUseCase(
+                    BuildConfig.API_KEY, Locale.getDefault().language, page
+                ).distinctUntilChanged().collect {
+                    Log.d("TopMoviesViewModel", "collect")
+                    topMoviesPagingLiveData.postValue(it)
+                }
+            } catch (e: Exception) {
+                errorMessageLiveData.postValue(e.message)
             }
         }
     }
@@ -55,7 +61,7 @@ class TopMoviesViewModel @Inject constructor(
                 moviesChangedLiveData.postValue(movieId)
 
             } catch (e: Exception) {
-                Log.e("TopMoviesViewModel", e.message ?: "Error")
+                errorMessageLiveData.postValue(e.message)
             }
         }
     }

@@ -20,19 +20,29 @@ class FavoriteMoviesViewModel @Inject constructor(
 
     val favoriteMoviesLiveData = MutableLiveData<List<FavoriteMovieWrapper>>()
 
+    val errorMessageLiveData = MutableLiveData<String>()
+
     init {
         getFavoriteMovies()
     }
 
     private fun getFavoriteMovies() =
         launch {
-            getFavoriteMoviesUseCase().collectLatest { favoriteMovies ->
-                favoriteMoviesLiveData.postValue(favoriteMovies.map { FavoriteMovieWrapper(it) })
+            try {
+                getFavoriteMoviesUseCase().collectLatest { favoriteMovies ->
+                    favoriteMoviesLiveData.postValue(favoriteMovies.map { FavoriteMovieWrapper(it) })
+                }
+            } catch (e: Exception) {
+                errorMessageLiveData.postValue(e.message)
             }
         }
 
     fun removeFavorite(movieId: Int) =
         launch {
-            removeFavoriteMovieUseCase(movieId)
+            try {
+                removeFavoriteMovieUseCase(movieId)
+            } catch (e: Exception) {
+                errorMessageLiveData.postValue(e.message)
+            }
         }
 }
