@@ -8,12 +8,12 @@ class TopMoviesPagingSource(
     private val moviesRepository: MoviesRepository,
     private var apiKey: String = "",
     private var isoLanguage: String = "en"
-) : PagingSource<Int, Movie>() {
+) : PagingSource<Int, TopMovie>() {
 
 
-    override fun getRefreshKey(state: PagingState<Int, Movie>): Int? = null
+    override fun getRefreshKey(state: PagingState<Int, TopMovie>): Int? = null
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TopMovie> {
         val page = params.key ?: 1
 
         return try {
@@ -28,7 +28,7 @@ class TopMoviesPagingSource(
     private fun toLoadResult(
         rawData: TopMovies,
         page: Int
-    ): LoadResult<Int, Movie> {
+    ): LoadResult<Int, TopMovie> {
         return LoadResult.Page(
             data = rawData.results,
             prevKey = if (page == 1) null else page - 1,

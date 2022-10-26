@@ -2,8 +2,8 @@ package com.jfalck.mooviz.di
 
 import com.jfalck.data.di.MoviesRepositoryModule
 import com.jfalck.domain.repository.MoviesRepository
-import com.jfalck.domain.usecases.getTopMovies.GetTopMoviesUseCase
-import com.jfalck.domain.usecases.getTopMovies.GetTopMoviesUseCaseImpl
+import com.jfalck.domain.usecases.topmovies.GetTopMoviesUseCase
+import com.jfalck.domain.usecases.topmovies.GetTopMoviesUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

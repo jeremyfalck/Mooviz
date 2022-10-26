@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jfalck.mooviz.databinding.FragmentTopMoviesBinding
+import com.jfalck.mooviz.feature.topmovies.ui.adapter.IS_FAVORITE_KEY
 import com.jfalck.mooviz.feature.topmovies.ui.adapter.TopMoviesPagerAdapter
 import com.jfalck.mooviz.feature.topmovies.viewModel.TopMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,14 +25,11 @@ class TopMoviesFragment : Fragment() {
     lateinit var adapter: TopMoviesPagerAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View =
-        FragmentTopMoviesBinding.inflate(layoutInflater).let {
-            binding = it
-            it.root
-        }
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View = FragmentTopMoviesBinding.inflate(layoutInflater).let {
+        binding = it
+        it.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,6 +43,19 @@ class TopMoviesFragment : Fragment() {
         }
         topMoviesViewModel.topMoviesPagingLiveData.observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
+        }
+
+        adapter.onFavoriteSelectedListener = { movieId: Int, isFavorite: Boolean ->
+            topMoviesViewModel.setFavorite(movieId, isFavorite)
+        }
+
+        topMoviesViewModel.moviesChangedLiveData.observe(viewLifecycleOwner) { movieId ->
+            val movie = adapter.snapshot().items.find { it.id == movieId }
+
+            movie?.isFavorite = !(movie?.isFavorite ?: true)
+            adapter.notifyItemChanged(
+                adapter.snapshot().items.indexOfFirst { it.id == movieId }, IS_FAVORITE_KEY
+            )
         }
     }
 }
