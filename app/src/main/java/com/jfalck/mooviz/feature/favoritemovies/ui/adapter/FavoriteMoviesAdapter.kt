@@ -16,6 +16,8 @@ class FavoriteMoviesAdapter @Inject constructor() :
     ListAdapter<Movie, FavoriteMoviesAdapter.FavoriteMoviesViewHolder>(FavoriteMoviesDiffCallback()) {
 
 
+    var onUnFavorite: (Int) -> Unit = { }
+
     inner class FavoriteMoviesViewHolder(val binding: FavoriteMovieItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -32,7 +34,11 @@ class FavoriteMoviesAdapter @Inject constructor() :
         getItem(position).let { movie ->
             holder.binding.run {
                 favoriteMovieItemTitle.text = movie.title
-                Glide.with(root.context).load(BASE_POSTER_URL + movie.posterPath).into(favoriteMoviePoster)
+                Glide.with(root.context).load(BASE_POSTER_URL + movie.posterPath)
+                    .into(favoriteMoviePoster)
+                favoriteMoviesFavIcon.setOnClickListener {
+                    onUnFavorite(movie.id)
+                }
             }
         }
     }

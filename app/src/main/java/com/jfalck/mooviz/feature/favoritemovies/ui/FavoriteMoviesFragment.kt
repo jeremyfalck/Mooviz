@@ -41,7 +41,9 @@ class FavoriteMoviesFragment : Fragment() {
     private fun initView() {
         binding.favoriteMoviesFragmentRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
-            adapter = this@FavoriteMoviesFragment.adapter
+            adapter = this@FavoriteMoviesFragment.adapter.apply {
+                onUnFavorite = { movieId -> favoriteMoviesViewModel.removeFavorite(movieId) }
+            }
         }
 
         favoriteMoviesViewModel.favoriteMoviesLiveData.observe(viewLifecycleOwner) {

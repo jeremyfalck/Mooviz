@@ -14,9 +14,6 @@ interface FavoriteMovieDAO {
     @Query("SELECT * FROM favorite_movie")
     fun getAllAsFlow(): Flow<List<FavoriteMovie>>
 
-    @Query("SELECT * FROM favorite_movie WHERE id IN (:movieId)")
-    suspend fun loadById(movieId: Int): FavoriteMovie
-
     @Query(
         "SELECT * FROM favorite_movie WHERE id = :movieId"
     )
