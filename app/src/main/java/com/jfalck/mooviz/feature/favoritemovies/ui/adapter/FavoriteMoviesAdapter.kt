@@ -8,12 +8,13 @@ import com.bumptech.glide.Glide
 import com.jfalck.domain.constants.MovieConstants.BASE_POSTER_URL
 import com.jfalck.domain.model.Movie
 import com.jfalck.mooviz.databinding.FavoriteMovieItemBinding
+import com.jfalck.mooviz.feature.favoritemovies.wrapper.FavoriteMovieWrapper
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 
 @FragmentScoped
 class FavoriteMoviesAdapter @Inject constructor() :
-    ListAdapter<Movie, FavoriteMoviesAdapter.FavoriteMoviesViewHolder>(FavoriteMoviesDiffCallback()) {
+    ListAdapter<FavoriteMovieWrapper, FavoriteMoviesAdapter.FavoriteMoviesViewHolder>(FavoriteMoviesDiffCallback()) {
 
 
     var onUnFavorite: (Int) -> Unit = { }
@@ -33,11 +34,11 @@ class FavoriteMoviesAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: FavoriteMoviesViewHolder, position: Int) {
         getItem(position).let { movie ->
             holder.binding.run {
-                favoriteMovieItemTitle.text = movie.title
-                Glide.with(root.context).load(BASE_POSTER_URL + movie.posterPath)
+                favoriteMovieItemTitle.text = movie.getTitle()
+                Glide.with(root.context).load(BASE_POSTER_URL + movie.getPosterPath())
                     .into(favoriteMoviePoster)
                 favoriteMoviesFavIcon.setOnClickListener {
-                    onUnFavorite(movie.id)
+                    onUnFavorite(movie.getId())
                 }
             }
         }
