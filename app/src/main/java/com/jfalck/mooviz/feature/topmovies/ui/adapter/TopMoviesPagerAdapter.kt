@@ -25,6 +25,8 @@ class TopMoviesPagerAdapter @Inject constructor() :
 
     var onFavoriteSelectedListener: ((Int, Boolean) -> Unit) = { _, _ -> }
 
+    var onItemSelected: (Int) -> Unit = { }
+
     inner class TopMovieViewHolder(val binding: TopMovieItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -48,6 +50,9 @@ class TopMoviesPagerAdapter @Inject constructor() :
         )
         holder.binding.topMoviesFavIcon.setOnClickListener {
             onFavoriteSelectedListener(item.id ?: 0, !item.isFavorite)
+        }
+        holder.binding.root.setOnClickListener {
+            onItemSelected(item.id ?: 0)
         }
     }
 
@@ -90,7 +95,7 @@ class TopMoviesPagerAdapter @Inject constructor() :
                 Animation.RELATIVE_TO_SELF,
                 0.5f
             )
-            anim.duration = Random.nextLong(501) //to make duration random number between [0,501)
+            anim.duration = Random.nextLong(501) //to make duration random number between [0,501])
             viewToAnimate.startAnimation(anim)
             mLastPosition = position
         }

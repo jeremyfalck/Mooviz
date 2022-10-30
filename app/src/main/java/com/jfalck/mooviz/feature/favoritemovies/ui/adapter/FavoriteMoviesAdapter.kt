@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jfalck.domain.constants.MovieConstants.BASE_POSTER_URL
-import com.jfalck.domain.model.Movie
 import com.jfalck.mooviz.databinding.FavoriteMovieItemBinding
 import com.jfalck.mooviz.feature.favoritemovies.wrapper.FavoriteMovieWrapper
 import dagger.hilt.android.scopes.FragmentScoped
@@ -14,10 +13,13 @@ import javax.inject.Inject
 
 @FragmentScoped
 class FavoriteMoviesAdapter @Inject constructor() :
-    ListAdapter<FavoriteMovieWrapper, FavoriteMoviesAdapter.FavoriteMoviesViewHolder>(FavoriteMoviesDiffCallback()) {
-
+    ListAdapter<FavoriteMovieWrapper, FavoriteMoviesAdapter.FavoriteMoviesViewHolder>(
+        FavoriteMoviesDiffCallback()
+    ) {
 
     var onUnFavorite: (Int) -> Unit = { }
+
+    var onItemSelected: (Int) -> Unit = { }
 
     inner class FavoriteMoviesViewHolder(val binding: FavoriteMovieItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -39,6 +41,9 @@ class FavoriteMoviesAdapter @Inject constructor() :
                     .into(favoriteMoviePoster)
                 favoriteMoviesFavIcon.setOnClickListener {
                     onUnFavorite(movie.getId())
+                }
+                root.setOnClickListener {
+                    onItemSelected(movie.getId())
                 }
             }
         }

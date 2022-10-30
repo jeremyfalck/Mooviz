@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.jfalck.mooviz.R
 import com.jfalck.mooviz.databinding.FragmentTopMoviesBinding
+import com.jfalck.mooviz.feature.moviedetail.ui.MOVIE_ID_KEY
 import com.jfalck.mooviz.feature.topmovies.ui.adapter.IS_FAVORITE_KEY
 import com.jfalck.mooviz.feature.topmovies.ui.adapter.TopMoviesPagerAdapter
 import com.jfalck.mooviz.feature.topmovies.viewModel.TopMoviesViewModel
@@ -50,6 +53,14 @@ class TopMoviesFragment : Fragment() {
 
         adapter.onFavoriteSelectedListener = { movieId: Int, isFavorite: Boolean ->
             topMoviesViewModel.setFavorite(movieId, isFavorite)
+        }
+
+        adapter.onItemSelected = { movieId ->
+            findNavController().navigate(
+                R.id.action_topMoviesFragment_to_movieDetailFragment,
+                Bundle().apply {
+                    putInt(MOVIE_ID_KEY, movieId)
+                })
         }
     }
 

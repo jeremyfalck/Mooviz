@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.jfalck.domain.model.TopMovie
 import com.jfalck.domain.usecases.favoritemovies.SetFavoriteMovieUseCase
 import com.jfalck.domain.usecases.topmovies.GetTopMoviesUseCase
@@ -39,8 +40,7 @@ class TopMoviesViewModel @Inject constructor(
             try {
                 getTopMoviesUseCase(
                     BuildConfig.API_KEY, Locale.getDefault().language, page
-                ).distinctUntilChanged().collect {
-                    Log.d("TopMoviesViewModel", "collect")
+                ).cachedIn(this).distinctUntilChanged().collect {
                     topMoviesPagingLiveData.postValue(it)
                 }
             } catch (e: Exception) {

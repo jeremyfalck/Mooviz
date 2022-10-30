@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.jfalck.mooviz.R
 import com.jfalck.mooviz.databinding.FragmentFavoriteMoviesBinding
 import com.jfalck.mooviz.feature.favoritemovies.ui.adapter.FavoriteMoviesAdapter
 import com.jfalck.mooviz.feature.favoritemovies.viewmodel.FavoriteMoviesViewModel
+import com.jfalck.mooviz.feature.moviedetail.ui.MOVIE_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,14 +30,11 @@ class FavoriteMoviesFragment : Fragment() {
     private lateinit var snackbar: Snackbar
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View =
-        FragmentFavoriteMoviesBinding.inflate(layoutInflater).let {
-            binding = it
-            it.root
-        }
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View = FragmentFavoriteMoviesBinding.inflate(layoutInflater).let {
+        binding = it
+        it.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,6 +48,12 @@ class FavoriteMoviesFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 2)
             adapter = this@FavoriteMoviesFragment.adapter.apply {
                 onUnFavorite = { movieId -> favoriteMoviesViewModel.removeFavorite(movieId) }
+                onItemSelected = { movieId ->
+                    findNavController().navigate(R.id.action_favoriteMoviesFragment_to_movieDetailFragment,
+                        Bundle().apply {
+                            putInt(MOVIE_ID_KEY, movieId)
+                        })
+                }
             }
         }
     }

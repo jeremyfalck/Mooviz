@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_top_movies_nav_graph"
+    app:startDestination="@id/topMoviesFragment">
+
+    <fragment
+        android:id="@+id/topMoviesFragment"
+        android:name="com.jfalck.mooviz.feature.topmovies.ui.TopMoviesFragment"
+        android:label="TopMoviesFragment"
+        tools:layout="@layout/fragment_top_movies">
+
+        <action
+            android:id="@+id/action_topMoviesFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment">
+            <argument
+                android:name="movieId"
+                app:argType="integer" />
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteMoviesFragment"
+        android:name="com.jfalck.mooviz.feature.favoritemovies.ui.FavoriteMoviesFragment"
+        android:label="FavoriteMoviesFragment"
+        tools:layout="@layout/fragment_favorite_movies">
+        <action
+            android:id="@+id/action_favoriteMoviesFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment">
+            <argument
+                android:name="movieId"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.jfalck.mooviz.feature.moviedetail.ui.MovieDetailFragment"
+        android:label="MovieDetailFragment"
+        tools:layout="@layout/fragment_movie_detail" />
+
+</navigation>

@@ -1,6 +1,7 @@
 package com.jfalck.mooviz.feature.topmovies.ui
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -29,7 +30,27 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
 
+        setOnBackDispatcherCallback()
+
         initView()
+    }
+
+    private fun setOnBackDispatcherCallback() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val currentDestinationId = navController.currentDestination?.id
+                    if (currentDestinationId == R.id.topMoviesFragment ||
+                        currentDestinationId == R.id.favoriteMoviesFragment
+                    ) {
+                        finish()
+                    } else {
+                        navController.navigateUp()
+                    }
+                }
+            })
+
     }
 
     private fun initView() {
@@ -46,10 +67,18 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        binding.bottomNav.setOnItemReselectedListener {
-            //TODO reload fragments contents
+        binding.bottomNav.setOnItemReselectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_item_trending -> {
+                    navController.navigate(R.id.topMoviesFragment)
+                }
+                R.id.menu_item_favorites -> {
+                    navController.navigate(R.id.favoriteMoviesFragment)
+                }
+                else -> {
+                    // do nothing
+                }
+            }
         }
     }
-
-
 }
